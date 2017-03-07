@@ -13,5 +13,5 @@ try {
 
     echo (new App\Application())->main();
 } catch (Exception $e) {
-    echo '<pre>', $e->getMessage(), "\n" , $e->getTraceAsString(), '</pre>';
+    echo '<pre>', $e->getMessage(), "\n", $e->getTraceAsString(), '</pre>';
 }
