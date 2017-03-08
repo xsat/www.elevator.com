@@ -22,11 +22,6 @@ class Home implements EventsInterface, TestInterface
     private $person = null;
 
     /**
-     * @var Queue = null
-     */
-    private $queue = null;
-
-    /**
      * @var array
      */
     private $events = [];
@@ -38,7 +33,6 @@ class Home implements EventsInterface, TestInterface
     {
         $this->elevator = new Elevator(10);
         $this->person = new Person('Karl');
-        $this->queue = new Queue();
     }
 
     /**
