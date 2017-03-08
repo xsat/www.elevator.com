@@ -15,8 +15,12 @@ class ParentController
      */
     protected $view = null;
 
+    /**
+     * ParentController constructor.
+     * @param VariablesInterface $view
+     */
     public function __construct(VariablesInterface $view)
     {
-        $this->view = $this;
+        $this->view = $view;
     }
 }

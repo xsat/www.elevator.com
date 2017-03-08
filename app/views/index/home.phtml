@@ -1,1 +1,9 @@
-hi
+<?php if (isset($events)): ?>
+    <ul>
+        <?php foreach ($events as $event): ?>
+            <li>
+                <?= $event ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

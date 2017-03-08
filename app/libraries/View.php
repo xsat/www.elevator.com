@@ -4,7 +4,6 @@ namespace App\Libraries;
 
 use App\Interfaces\VariablesInterface;
 use App\Interfaces\RenderInterface;
-use Exception;
 
 /**
  * Class View

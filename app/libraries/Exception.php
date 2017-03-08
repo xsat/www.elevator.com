@@ -3,10 +3,9 @@
 namespace App\Libraries;
 
 /**
- * Class Queued
+ * Class Exception
  * @package App\Libraries
  */
-class Queued
+class Exception extends \Exception
 {
-
 }

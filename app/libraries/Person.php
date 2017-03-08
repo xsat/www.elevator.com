@@ -3,14 +3,13 @@
 namespace App\Libraries;
 
 use App\Interfaces\NameInterface;
-use App\Interfaces\ActionInterface;
-use App\Interfaces\PushInterface;
+use App\Interfaces\LevelInterface;
 
 /**
  * Class Person
  * @package App\Libraries
  */
-class Person implements NameInterface, ActionInterface, PushInterface
+class Person implements NameInterface, LevelInterface
 {
     /**
      * @var string
@@ -32,5 +31,15 @@ class Person implements NameInterface, ActionInterface, PushInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param int $min
+     * @param int $max
+     * @return int
+     */
+    public function getLevel($min, $max)
+    {
+        return mt_rand($min, $max);
     }
 }

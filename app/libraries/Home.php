@@ -2,11 +2,14 @@
 
 namespace App\Libraries;
 
+use App\Interfaces\EventsInterface;
+use App\Interfaces\TestInterface;
+
 /**
  * Class Home
  * @package App\Libraries
  */
-class Home
+class Home implements EventsInterface, TestInterface
 {
     /**
      * @var Elevator
@@ -19,9 +22,14 @@ class Home
     private $person = null;
 
     /**
-     * @var queued = null
+     * @var Queue = null
      */
-    private $queued = null;
+    private $queue = null;
+
+    /**
+     * @var array
+     */
+    private $events = [];
 
     /**
      * Home constructor.
@@ -30,26 +38,19 @@ class Home
     {
         $this->elevator = new Elevator(10);
         $this->person = new Person('Karl');
-        $this->queued = new Queued();
+        $this->queue = new Queue();
+    }
 
-        /*var_dump($this->elevator->current()->getNumber());
+    /**
+     * @return array
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
 
-        while ($this->elevator->move(5)) {
-            var_dump($this->elevator->current()->getNumber());
-        }
-
-        while ($this->elevator->move(2)) {
-            var_dump($this->elevator->current()->getNumber());
-        }
-
-        while ($this->elevator->move(20)) {
-            var_dump($this->elevator->current()->getNumber());
-        }
-
-        while ($this->elevator->move(-10)) {
-            var_dump($this->elevator->current()->getNumber());
-        }
-
-        exit;*/
+    public function test()
+    {
+        $this->events[] = 'Hi my name is ' . $this->person->getName();
     }
 }
