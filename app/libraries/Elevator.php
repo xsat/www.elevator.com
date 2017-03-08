@@ -69,7 +69,7 @@ class Elevator implements MoveInterface
     /**
      * @return NumberInterface|CurrentInterface|null
      */
-    public function getCurrent()
+    private function getCurrent()
     {
         /**
          * @var CurrentInterface $level
