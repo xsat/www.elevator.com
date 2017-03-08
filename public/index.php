@@ -6,7 +6,7 @@ ini_set('display_errors', 'on');
 try {
     $autoload = __DIR__ . '/../vendor/autoload.php';
     if (!is_file($autoload)) {
-        throw new Exception('Update composer');
+        throw new Exception('Composer is required');
     }
 
     require_once $autoload;

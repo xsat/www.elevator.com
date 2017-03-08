@@ -3,6 +3,8 @@
 namespace App\Libraries;
 
 use App\Interfaces\MoveInterface;
+use App\Interfaces\NumberInterface;
+use App\Interfaces\CurrentInterface;
 
 /**
  * Class Elevator
@@ -25,13 +27,13 @@ class Elevator implements MoveInterface
     }
 
     /**
-     * @param int $low
-     * @param int $high
+     * @param int $min
+     * @param int $max
      */
-    private function createLevels($low, $high)
+    private function createLevels($min, $max)
     {
-        foreach (range($low, $high) as $number) {
-            $this->levels[] = new Level($number, $low == $number); // Sets first item as current
+        foreach (range($min, $max) as $number) {
+            $this->levels[] = new Level($number, $min == $number); // Sets first item as current
         }
     }
 
@@ -41,6 +43,79 @@ class Elevator implements MoveInterface
      */
     public function move($number)
     {
+        $current = $this->getCurrent();
+        if (!$current) {
+            return false;
+        }
+
+        $coming = null;
+
+        if ($number > $current->getNumber()) {
+            $coming = $this->getNext($current->getNumber());
+        } elseif ($number < $current->getNumber()) {
+            $coming = $this->getPrev($current->getNumber());
+        }
+
+        if ($coming) {
+            $current->setCurrent(false);
+            $coming->setCurrent(true);
+
+            return true;
+        }
+
         return false;
+    }
+
+    /**
+     * @return NumberInterface|CurrentInterface|null
+     */
+    public function getCurrent()
+    {
+        /**
+         * @var CurrentInterface $level
+         */
+        foreach ($this->levels as $level) {
+            if ($level->isCurrent()) {
+                return $level;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param int $number
+     * @return NumberInterface|CurrentInterface|null
+     */
+    private function getPrev($number)
+    {
+       return $this->findFirst(--$number);
+    }
+
+    /**
+     * @param int $number
+     * @return NumberInterface|CurrentInterface|null
+     */
+    private function getNext($number)
+    {
+        return $this->findFirst(++$number);
+    }
+
+    /**
+     * @param int $number
+     * @return NumberInterface|CurrentInterface|null
+     */
+    private function findFirst($number)
+    {
+        /**
+         * @var NumberInterface $level
+         */
+        foreach ($this->levels as $level) {
+            if ($level->getNumber() == $number) {
+                return $level;
+            }
+        }
+
+        return null;
     }
 }
