@@ -52,5 +52,26 @@ class Home implements EventsInterface, TestInterface
     public function test()
     {
         $this->events[] = 'Hi my name is ' . $this->person->getName();
+        $this->events[] = 'I\'m on ' . $this->elevator->getCurrentNumber() . 'th floor';
+
+        $randFloor = $this->person->getLevel(1, 10);
+        $this->events[] = 'I want to go on ' . $randFloor . 'th floor';
+        $this->events[] = 'I\'m entering the elevator';
+
+        while ($this->elevator->move($randFloor)) {
+            $this->events[] = 'The elevator is going to ' . $this->elevator->getCurrentNumber() . 'th floor';
+        }
+
+        $this->events[] = 'I\'m getting out of the elevator';
+
+        $randFloor = $this->person->getLevel(1, 10);
+        $this->events[] = 'I want to go on ' . $randFloor . 'th floor';
+        $this->events[] = 'I\'m entering the elevator';
+
+        while ($this->elevator->move($randFloor)) {
+            $this->events[] = 'The elevator is going to ' . $this->elevator->getCurrentNumber() . 'th floor';
+        }
+
+        $this->events[] = 'I\'m getting out of the elevator';
     }
 }

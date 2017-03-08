@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use App\Interfaces\MoveInterface;
+use App\Interfaces\CurrentNumberInterface;
 use App\Interfaces\NumberInterface;
 use App\Interfaces\CurrentInterface;
 
@@ -10,7 +11,7 @@ use App\Interfaces\CurrentInterface;
  * Class Elevator
  * @package App\Libraries
  */
-class Elevator implements MoveInterface
+class Elevator implements MoveInterface, CurrentNumberInterface
 {
     /**
      * @var array
@@ -23,7 +24,7 @@ class Elevator implements MoveInterface
      */
     public function __construct($size)
     {
-        $this->createLevels(0, $size);
+        $this->createLevels(1, $size);
     }
 
     /**
@@ -64,6 +65,19 @@ class Elevator implements MoveInterface
         }
 
         return false;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCurrentNumber()
+    {
+        $current = $this->getCurrent();
+        if (!$current) {
+            return null;
+        }
+
+        return $current->getNumber();
     }
 
     /**
